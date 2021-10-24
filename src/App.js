@@ -9,13 +9,26 @@ class App extends Component {
     this.state = {
       item: '',
       quantity: '',
-      brand: ''
+      brand: '',
+			date: '',
+			request: ''
     }
   }
 
   changeHandler = (e) => {
     this.setState({[e.target.name]: e.target.value})
   }
+
+	handleKeyUp = (e) => {
+		if (e.which !== 8) {
+		let numChars = e.target.value.length;
+		if (numChars === 2 || numChars === 5) {
+			let thisVal = e.target.value;
+			thisVal += '/';
+			e.target.value = thisVal;
+		}
+	}
+}
 
   submitHandler = e => {
     e.preventDefault();
@@ -27,13 +40,15 @@ class App extends Component {
 			this.setState({
 				item: '',
 				quantity: '',
-				brand: ''
+				brand: '',
+				date: '',
+				request: ''
 			})
     })
   }
 
   render() {
-    const { item, quantity, brand } = this.state; 
+    const { item, quantity, brand, date, request } = this.state; 
     return (
       <Container fluid className="container">
         <Header className="heading" as='h2'>MS Salahuddin procurement form</Header>
@@ -49,6 +64,14 @@ class App extends Component {
           <Form.Field>
             <label>Brand</label>
             <input placeholder='Natraj' type="text" name="brand" value={brand} onChange={this.changeHandler}  />
+          </Form.Field>
+					<Form.Field>
+            <label>Date</label>
+            <input onKeyUp={this.handleKeyUp} placeholder='01/12/2021' type="text" name="date" value={date} onChange={this.changeHandler}  />
+          </Form.Field>
+					<Form.Field>
+            <label>Request</label>
+            <input placeholder='Request' type="text" name="request" value={request} onChange={this.changeHandler}  />
           </Form.Field>
           <Button className="sub-button" color="blue" type='submit'>Submit</Button>
         </Form>
