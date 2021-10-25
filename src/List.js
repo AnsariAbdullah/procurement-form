@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { Container, Header, Card, Icon } from 'semantic-ui-react';
+import { Container, Header, Card, Icon, Button } from 'semantic-ui-react';
 
 const List = () => {
 
@@ -15,6 +15,19 @@ const List = () => {
 		})
 		.catch(err => console.log(err))
 	}, [])
+
+	const deleteData = (arrayIndex) => {
+		fetch(`https://sheet.best/api/sheets/04ed69c0-c4e3-4d6a-bbb7-84bcaedbd6eb/${arrayIndex}`, {
+			method: "DELETE",
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}
 
 	return (
 		<Container fluid className="container">
@@ -37,16 +50,16 @@ const List = () => {
 								Requested by <strong>{item.request}</strong> on <strong>{item.date}</strong>
 							</Card.Description>
 						</Card.Content>
-						{/* <Card.Content extra>
+						<Card.Content extra>
 							<div className='ui two buttons'>
-								<Button basic color='green'>
+								{/* <Button basic color='green'>
 									Copy to clipboard
-								</Button>
-								<Button basic color='red'>
+								</Button> */}
+								<Button onClick={()=>deleteData(index)} basic color='red'>
 									Delete
 								</Button>
 							</div>
-						</Card.Content> */}
+						</Card.Content>
 					</Card>
 				)}
 			</Card.Group>
