@@ -45,7 +45,6 @@ const List = () => {
 						<Card.Content>
 							<Card.Header>{item.item}</Card.Header>
 							<Card.Meta>{item.brand} - {item.quantity}</Card.Meta>
-							<Card.Meta>Created date - </Card.Meta>
 							<Card.Description>
 								Requested by <strong>{item.request}</strong> on <strong>{item.date}</strong>
 							</Card.Description>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Container, Header, Icon } from 'semantic-ui-react';
+import { Button, Form, Container, Header, Icon, Message } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import './App.css';
 
@@ -12,7 +12,8 @@ class App extends Component {
       quantity: '',
       brand: '',
 			date: '',
-			request: ''
+			request: '',
+			showSnackBar: false
     }
   }
 
@@ -22,17 +23,25 @@ class App extends Component {
 
 	handleKeyUp = (e) => {
 		if (e.which !== 8) {
-		let numChars = e.target.value.length;
-		if (numChars === 2 || numChars === 5) {
-			let thisVal = e.target.value;
-			thisVal += '/';
-			e.target.value = thisVal;
+			let numChars = e.target.value.length;
+			if (numChars === 2 || numChars === 5) {
+				let thisVal = e.target.value;
+				thisVal += '/';
+				e.target.value = thisVal;
+			}
 		}
 	}
-}
+
+	// generateDate = () => {
+	// 	const d = new Date();
+	// 	this.setState({
+	// 		date: `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}` 
+	// 	})
+	// }
 
   submitHandler = e => {
     e.preventDefault();
+		// this.generateDate();
     console.log(this.state);
 
     axios.post('https://sheet.best/api/sheets/04ed69c0-c4e3-4d6a-bbb7-84bcaedbd6eb', this.state)
@@ -43,8 +52,15 @@ class App extends Component {
 				quantity: '',
 				brand: '',
 				date: '',
-				request: ''
+				request: '',
+				showSnackBar: true
 			})
+
+			setTimeout(()=>{
+				this.setState({
+					showSnackBar: false
+				})
+			}, 3500);
     }).catch(err => console.log(err))
   }
 
@@ -84,6 +100,15 @@ class App extends Component {
           </Form.Field>
           <Button className="sub-button" color="blue" type='submit'>Submit</Button>
         </Form>
+
+				{ this.state.showSnackBar &&
+					<Message compact positive>
+						<Message.Header>
+							<Icon color='green' name='check' />
+							Details added
+						</Message.Header>
+					</Message>
+				}
       </Container>
     );
   }
