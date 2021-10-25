@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Container, Header } from 'semantic-ui-react';
+import { Button, Form, Container, Header, Icon } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
 import './App.css';
 
 class App extends Component {
@@ -44,13 +45,21 @@ class App extends Component {
 				date: '',
 				request: ''
 			})
-    })
+    }).catch(err => console.log(err))
   }
 
   render() {
     const { item, quantity, brand, date, request } = this.state; 
     return (
       <Container fluid className="container">
+				<nav>
+					<Link className="nav-button" to="/list">
+						<Icon size='big' name='list alternate outline' />
+						<Header as='h3'>List</Header>
+					</Link>
+				</nav>
+
+
         <Header className="heading" as='h2'>MS Salahuddin procurement form</Header>
         <Form className="form" onSubmit={this.submitHandler}>
           <Form.Field>
