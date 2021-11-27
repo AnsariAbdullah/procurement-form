@@ -21,17 +21,6 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-	handleKeyUp = (e) => {
-		if (e.which !== 8) {
-			let numChars = e.target.value.length;
-			if (numChars === 2 || numChars === 5) {
-				let thisVal = e.target.value;
-				thisVal += '/';
-				e.target.value = thisVal;
-			}
-		}
-	}
-
 	// this function makes post API call in excel sheet 
 	StoreDataInSheetApiCall = () => {
 		axios.post('https://sheet.best/api/sheets/04ed69c0-c4e3-4d6a-bbb7-84bcaedbd6eb', this.state)
@@ -75,7 +64,6 @@ class App extends Component {
 						<Header as='h3'>List</Header>
 					</Link>
 				</nav>
-
 
         <Header className="heading" as='h2'>MS Salahuddin procurement form</Header>
         <Form className="form" onSubmit={this.submitHandler}>
