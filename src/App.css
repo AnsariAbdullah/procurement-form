@@ -48,6 +48,11 @@ h3.ui.header{
 	width: auto !important;
 }
 
+/* modal css */
+.ui.modal>.actions{
+	text-align: center !important;
+}
+
 @media only screen and (max-width: 425px) {
 	.ui.cards{
 		grid-template-columns: 1fr;
