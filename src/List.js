@@ -40,7 +40,7 @@ const List = () => {
 
 
 		  <Card.Group>
-				{data.map((item, index) =>
+				{data.reverse().map((item, index) =>
 					<Card key={index}>
 						<Card.Content>
 							<Card.Header>{item.item}</Card.Header>
