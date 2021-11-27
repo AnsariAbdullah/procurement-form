@@ -32,19 +32,9 @@ class App extends Component {
 		}
 	}
 
-	// generateDate = () => {
-	// 	const d = new Date();
-	// 	this.setState({
-	// 		date: `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}` 
-	// 	})
-	// }
-
-  submitHandler = e => {
-    e.preventDefault();
-		// this.generateDate();
-    console.log(this.state);
-
-    axios.post('https://sheet.best/api/sheets/04ed69c0-c4e3-4d6a-bbb7-84bcaedbd6eb', this.state)
+	// this function makes post API call in excel sheet 
+	StoreDataInSheetApiCall = () => {
+		axios.post('https://sheet.best/api/sheets/04ed69c0-c4e3-4d6a-bbb7-84bcaedbd6eb', this.state)
     .then(response => {
       console.log(response);
 			this.setState({
@@ -62,6 +52,17 @@ class App extends Component {
 				})
 			}, 3500);
     }).catch(err => console.log(err))
+	}
+
+  submitHandler = e => {
+    e.preventDefault();
+    console.log(this.state);
+		const d = new Date();
+
+		// this makes the API call after date has been added in state
+		this.setState({
+			date: `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}` 
+		}, () => this.StoreDataInSheetApiCall())
   }
 
   render() {
@@ -90,10 +91,7 @@ class App extends Component {
             <label>Brand</label>
             <input placeholder='Natraj' type="text" name="brand" value={brand} onChange={this.changeHandler}  />
           </Form.Field>
-					<Form.Field>
-            <label>Date</label>
-            <input onKeyUp={this.handleKeyUp} placeholder='01/12/2021' type="text" name="date" value={date} onChange={this.changeHandler}  />
-          </Form.Field>
+
 					<Form.Field>
             <label>Requested by</label>
             <input placeholder='Fayesal' type="text" name="request" value={request} onChange={this.changeHandler}  />
