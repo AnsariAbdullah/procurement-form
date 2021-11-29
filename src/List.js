@@ -61,6 +61,24 @@ const List = () => {
 		})
 	}
 
+	// will unMount
+	useEffect(()=>{
+		return () => {
+			// console.log('List unmounted')
+			setData([]);
+			setModalOpen(false);
+			setShowSnackBar(false)
+			setModalInfo({
+				index: '',
+				item: '',
+				quantity: '',
+				brand: '',
+				request: '',
+				date: ''
+			})
+    };
+	}, [])
+
 	// console log modal items
 	// useEffect(()=>{
 	// 	console.log(modalInfo);

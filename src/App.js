@@ -21,6 +21,17 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+	componentWillUnmount(){
+		this.setState({
+      item: '',
+      quantity: '',
+      brand: '',
+			date: '',
+			request: '',
+			showSnackBar: false
+    })
+	}
+
 	// this function makes post API call in excel sheet 
 	StoreDataInSheetApiCall = () => {
 		axios.post('https://sheet.best/api/sheets/04ed69c0-c4e3-4d6a-bbb7-84bcaedbd6eb', this.state)
